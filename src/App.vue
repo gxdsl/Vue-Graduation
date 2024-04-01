@@ -1,47 +1,31 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+// 导入Vue框架
+import { createApp } from 'vue';
+
+// 导入路由配置文件
+import router from './router/index.js';
+
+export default {
+  name: 'App', // 组件名称
+
+  created() {
+    // 在组件创建时创建Vue应用实例
+    const app = createApp(this);
+
+    // 使用路由配置
+    app.use(router);
+
+    // 将Vue应用挂载到DOM节点上
+    app.mount('#app');
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <!-- 根组件模板 -->
+  <div id="app">
+    <!-- 路由视图，用于显示匹配到的路由组件 -->
+    <router-view></router-view>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
