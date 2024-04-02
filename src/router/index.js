@@ -4,18 +4,42 @@ import { createRouter, createWebHistory } from 'vue-router';
 // 导入相关组件
 import Login from '../components/Login.vue';
 import Home from '../components/Home.vue'
+// import User from '../components/User.vue'
 
 // 定义路由配置
 const routes = [
     {
         path: '/', // 路由路径
-        name: 'Login', // 路由名称
+        name: 'login', // 路由名称
         component: Login // 对应的组件
     },
     {
         path: '/home', // 路由路径
-        name: 'Home', // 路由名称
-        component: Home // 对应的组件
+        name: 'home', // 路由名称
+        component: Home, // 对应的组件
+        redirect: '/home/admin', // 重定向到默认子路由
+        children:[
+            {
+                path:'admin',
+                name:"admin",
+                component: ()=>import("@/components/Admin.vue")
+            },
+            {
+                path:'user',
+                name:"user",
+                component: ()=>import("@/components/User.vue")
+            },
+            {
+                path:'equip',
+                name:"equip",
+                component: ()=>import("@/components/Equipment.vue")
+            },
+            {
+                path:'consume',
+                name:"consume",
+                component: ()=>import("@/components/Consume.vue")
+            },
+        ],
     },
     // 可以添加其他路由配置
 ];

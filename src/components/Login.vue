@@ -96,7 +96,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../assets/Login.jpeg');
+  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -111,7 +111,7 @@ export default {
   color: black; /* 文字颜色为黑色 */
   margin-bottom: 20px; /* 底部外边距为20px */
   position: absolute; /* 绝对定位 */
-  top: calc(50% - 250px); /* 以登录表单的中心为基准向上偏移 */
+  top: calc(50% - 300px); /* 以登录表单的中心为基准向上偏移 */
   left: 75%; /* 左边距 */
   transform: translate(-50%, -50%); /* 使用 transform 属性将文本水平和垂直居中 */
 }
@@ -122,17 +122,18 @@ export default {
   left: 75%; /* 左边距离为页面宽度的50% */
   transform: translate(-50%, -50%); /* 使用 transform 属性将容器水平和垂直居中 */
   max-width: 500px; /* 设置容器最大宽度为300px */
-  padding:25px; /* 内边距 */
+  padding:40px; /* 内边距 */
   background-color: white; /* 背景色为白色 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 添加黑色阴影边框 */
   border-radius: 20px; /* 边框圆角半径 */
+  //width: 50%;
 }
 
 .text1{
   text-align: center; /* 文本居中 */
   font-size: 30px; /* 设置文字大小*/
   color: black; /* 设置文字颜色*/
-  margin-bottom: 25px;/* 设置距离低部的距离*/
+  margin-bottom: 40px;/* 设置距离低部的距离*/
 }
 
 label {
@@ -145,15 +146,17 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .input-group {
   margin-bottom: 15px;
 
+  width: 100%;
 }
 
 input {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   font-size: 20px;
   color: black;
