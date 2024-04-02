@@ -4,6 +4,9 @@ import './assets/main.css'
 // 导入Vue框架
 import { createApp } from 'vue'
 
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css'
+
 // 导入根组件App.vue
 import App from './App.vue'
 
@@ -15,6 +18,8 @@ const app = createApp(App);
 
 // 使用路由配置
 app.use(router);
+
+app.use(ElementPlus);
 
 // 挂载Vue应用到DOM节点上，#app是挂载的目标DOM元素
 app.mount('#app');

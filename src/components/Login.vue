@@ -1,42 +1,89 @@
 <script>
+import SilderVerify from '../SilderVerify/index.vue'; // 引入滑块验证组件
+import { ElMessage } from 'element-plus'; // 引入 Element Plus 的 Message 组件
+import authAPI from '../API/login.js'; // 引入登录接口
+
 export default {
-  name: 'Login', // 组件名称
+  name: 'Login',
+
+  components: {
+    SilderVerify
+  },
 
   data() {
-    // 组件数据
     return {
-      username: '', // 用户名
-      password: '' // 密码
+      username: '',
+      password: '',
+      loginForm: {
+        status: false
+      },
+      errorMessage: '' // 新增 errorMessage 变量
     };
   },
 
   methods: {
-    // 登录方法
+    handleSuccess() {
+      this.loginForm.status = true;
+    },
+
+    handleError() {
+      ElMessage.error('滑块验证失败，请重试');
+    },
+
+    checkVerification() {
+      if (this.loginForm.status) {
+        this.login();
+      } else {
+        ElMessage.warning('请完成滑块验证');
+        this.$refs.sliderVerify.reset(); // 重置滑块验证组件
+      }
+    },
+
     login() {
-      // 在这里可以编写登录逻辑，比如向后端发送登录请求等
-      console.log('Username:', this.username);
-      console.log('Password:', this.password);
-      // 这里只是简单的打印用户名和密码，实际应用中需要替换为真实的登录逻辑
-    }
+      authAPI.login(this.username, this.password)
+          .then(response => {
+            if (response.data.code === 200) {
+              this.$router.push('/home');
+            } else {
+              const errorMessage = `错误码: ${response.data.code}, 错误信息: ${response.data.message}`;
+              ElMessage.error(errorMessage);
+              this.errorMessage = errorMessage;
+            }
+          })
+          .catch(error => {
+            let errorMessage = '登录请求失败，请检查网络连接';
+            if (error.response) {
+              errorMessage = `登录失败，${error.response.status}`;
+            } else {
+              errorMessage = '登录失败，请稍后重试';
+            }
+            ElMessage.error(errorMessage);
+            this.errorMessage = errorMessage;
+          });
+    },
   }
 };
 </script>
 
 <template>
+  <!-- 登录页面容器 -->
   <div class="login-background">
     <div class="header-text">
       校园直饮水管理系统
     </div>
     <div class="login">
       <h2 class="text1">管理员登录</h2>
-      <form @submit.prevent="login" class="form">
+      <form class="form">
         <div class="input-group">
           <input type="text" v-model="username" placeholder="用户名" required>
         </div>
         <div class="input-group">
           <input type="password" v-model="password" placeholder="密码" required>
         </div>
-        <button type="submit" style="font-size: 25px;padding: 5px;">登  录</button>
+        <el-form-item prop="status">
+          <silder-verify @success="handleSuccess" @failed="handleError" ref="sliderVerify"></silder-verify>
+        </el-form-item>
+        <button type="button" @click="checkVerification" style="font-size: 25px; padding: 5px;">登录</button>
       </form>
     </div>
   </div>
@@ -69,7 +116,6 @@ export default {
   transform: translate(-50%, -50%); /* 使用 transform 属性将文本水平和垂直居中 */
 }
 
-/* 样式说明：登录表单容器样式 */
 .login {
   position: absolute; /* 绝对定位 */
   top: 50%; /* 顶部距离为页面高度的50% */
@@ -79,7 +125,7 @@ export default {
   padding:25px; /* 内边距 */
   background-color: white; /* 背景色为白色 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 添加黑色阴影边框 */
-  border-radius: 20px; /* 边框圆角半径为5px */
+  border-radius: 20px; /* 边框圆角半径 */
 }
 
 .text1{
@@ -103,6 +149,7 @@ label {
 
 .input-group {
   margin-bottom: 15px;
+
 }
 
 input {
@@ -110,6 +157,7 @@ input {
   padding: 10px;
   font-size: 20px;
   color: black;
+  border-radius: 10px; /* 边框圆角半径 */
 }
 
 button {
@@ -120,9 +168,7 @@ button {
   cursor: pointer;
   margin-top: 10px;
   width: 100%; /* 设置按钮宽度与输入框相同 */
+  border-radius: 10px; /* 边框圆角半径 */
 }
 
-
 </style>
-
-
