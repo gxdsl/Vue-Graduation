@@ -1,9 +1,9 @@
 // 导入Vue Router相关模块
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
 // 导入相关组件
-import Login from '../components/Login.vue';
-import Home from '../components/Home.vue'
+import Login from '@/View/Login.vue';
+import Home from '@/View/Home.vue'
 // import User from '../components/User.vue'
 
 // 定义路由配置
@@ -18,26 +18,26 @@ const routes = [
         name: 'home', // 路由名称
         component: Home, // 对应的组件
         redirect: '/home/admin', // 重定向到默认子路由
-        children:[
+        children: [
             {
-                path:'admin',
-                name:"admin",
-                component: ()=>import("@/components/Admin.vue")
+                path: 'admin',
+                name: "admin",
+                component: () => import("@/View/Admin.vue")
             },
             {
-                path:'user',
-                name:"user",
-                component: ()=>import("@/components/User.vue")
+                path: 'user',
+                name: "user",
+                component: () => import("@/View/User.vue")
             },
             {
-                path:'equip',
-                name:"equip",
-                component: ()=>import("@/components/Equipment.vue")
+                path: 'equip',
+                name: "equip",
+                component: () => import("@/View/Equipment.vue")
             },
             {
-                path:'consume',
-                name:"consume",
-                component: ()=>import("@/components/Consume.vue")
+                path: 'consume',
+                name: "consume",
+                component: () => import("@/View/Consume.vue")
             },
         ],
     },

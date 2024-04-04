@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8888', // 设置基本的请求 URL
+    baseURL: 'http://localhost:8888', // 设置基本的请求 URL
     timeout: 5000, // 设置请求超时时间为 5 秒
     headers: {
         'Content-Type': 'application/json; charset=utf-8', // 设置请求头

@@ -43,6 +43,7 @@ export default {
       authAPI.login(this.username, this.password)
           .then(response => {
             if (response.data.code === 200) {
+              ElMessage.success("登录成功");
               this.$router.push('/home');
             } else {
               const errorMessage = `错误码: ${response.data.code}, 错误信息: ${response.data.message}`;

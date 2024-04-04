@@ -1,9 +1,10 @@
 <script setup>
-
+import index from '../components/user/list.vue'
 </script>
 
 <template>
-  <h2>用户管理</h2>
+  <index/>
+
 </template>
 
 <style scoped>
