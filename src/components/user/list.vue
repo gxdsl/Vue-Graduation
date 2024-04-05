@@ -21,8 +21,9 @@
 <script lang="jsx" setup>
 import { h, onMounted, ref } from 'vue';
 import { ElButton, ElMessage, ElTag } from "element-plus";
-import { Edit, Delete } from "@element-plus/icons-vue";
+import { Edit,Wallet } from "@element-plus/icons-vue";
 import axios from "axios";
+
 
 // 定义搜索框的响应式数据
 const searchName = ref('');
@@ -116,8 +117,8 @@ const columns = [
     cellRenderer: ({rowData}) => (
         <>
           <ElButton
-              type="danger"
-              icon={Delete}
+              type="success"
+              icon={<ElIcon><Wallet /></ElIcon>}
               onClick={() => handleDelete(rowData.id)}
           >
             充值
