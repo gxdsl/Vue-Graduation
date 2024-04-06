@@ -1,5 +1,6 @@
 <script setup>
 import index from '../components/user/list.vue'
+
 </script>
 
 <template>

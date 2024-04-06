@@ -127,7 +127,6 @@ export default {
   background-color: white; /* 背景色为白色 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 添加黑色阴影边框 */
   border-radius: 20px; /* 边框圆角半径 */
-  //width: 50%;
 }
 
 .text1{
@@ -138,7 +137,7 @@ export default {
 }
 
 label {
-  margin-bottom: 5px; /* 底部外边距为5px */
+  margin-bottom: 0; /* 底部外边距为5px */
   color: black; /* 文字颜色为黑色 */
   font-size: 20px; /* 设置文字大小*/
 }
