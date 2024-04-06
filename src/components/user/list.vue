@@ -3,7 +3,8 @@
   <div class="user-table">
   <!-- 添加用户的按钮 -->
   <div>
-    <el-button type="primary" @click="handleAdd">添加用户</el-button>
+    <el-button type="primary" @click="showAddDialog = true">添加用户</el-button>
+    <AddUserDialog v-if="showAddDialog" @closeDialog="showAddDialog = false" />
   </div>
   <!-- 搜索面板 -->
   <div>
@@ -27,21 +28,14 @@ import {h, onMounted, ref} from 'vue';
 import {ElButton, ElTag, ElIcon, ElMessage} from "element-plus";
 import {Edit, Wallet} from "@element-plus/icons-vue";
 import { fetchUserList } from '@/API/user.js';
-import router from "@/router/index.js"; // 假设 AddUserDialog.vue 是您的对话框组件文件路径
+import AddUserDialog from '@/components/user/add.vue';
 
+const showAddDialog = ref(false);
 
 // 删除操作的处理函数
 const handleDelete = (id) => {
   console.log(id);
   // 执行删除操作的逻辑
-};
-
-
-// 添加用户的处理函数
-const handleAdd = () => {
-  // 跳转到添加用户页面
-  router.push("/home/user/add");
-  // console.log("Navigating to add user page");
 };
 
 // 修改用户的处理函数
@@ -161,7 +155,9 @@ const tabledata = ref([]);
 
 </script>
 
+
 <style scoped>
+
 .Head{
   font-size:30px;
   text-align: center; /* 文字居中 */
@@ -174,10 +170,11 @@ const tabledata = ref([]);
   margin-right: 10px; /* 右侧外边距 */
   margin-left: 10px; /* 左侧外边距 */
   margin-bottom: 10px;
+  position: relative;
 }
+
 
 div{
   margin-top: 10px;
 }
-
 </style>

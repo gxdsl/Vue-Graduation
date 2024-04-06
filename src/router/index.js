@@ -39,11 +39,6 @@ const routes = [
                 name: "consume",
                 component: () => import("@/View/Consume.vue")
             },
-            {
-                path: 'user/add',
-                name: "add",
-                component: () => import("@/components/user/add.vue")
-            },
         ],
     },
     // 可以添加其他路由配置

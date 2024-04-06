@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import router from "@/router/index.js";
 import { ElInput, ElButton } from 'element-plus';
+import AddAPI from "@/API/user.js";
 
 export default {
   data() {
@@ -30,10 +30,17 @@ export default {
 
   methods: {
     goBack() {
-      router.push('/home/user');
+      this.$emit('closeDialog'); // 触发关闭弹窗事件
     },
-    handleSubmit() {
-      // 提交数据到后端的逻辑
+    async handleSubmit() {
+      try {
+        await AddAPI.ADD(this.username, this.password, this.cardNumber);
+        this.goBack(); // 提交成功后关闭弹窗
+        window.location.reload(); // 刷新页面
+      } catch (error) {
+        console.error('Error adding user:', error);
+        // 处理提交错误
+      }
     }
   }
 }
@@ -44,16 +51,23 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
 }
 
 .form-container {
+  background-color: #fff; /* 设置背景色为白色，可以根据需要调整 */
+  opacity: 1; /* 设置不透明度为 1，表示完全不透明 */
   border: 1px solid #ccc;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 20px;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* 设置一个较高的 z-index 值 */
 }
+
 
 .title {
   font-size: 25px;
