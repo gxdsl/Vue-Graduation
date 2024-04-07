@@ -1,41 +1,50 @@
 <template>
   <h1 class="Head">用户管理</h1>
   <div class="user-table">
-  <!-- 添加用户的按钮 -->
-  <div>
-    <el-button type="primary" @click="showAddDialog = true">添加用户</el-button>
-    <AddUserDialog v-if="showAddDialog" @closeDialog="showAddDialog = false" />
+    <!-- 添加用户的按钮 -->
+    <div>
+      <el-button type="primary" @click="showAddDialog = true">添加用户</el-button>
+      <AddUserDialog v-if="showAddDialog" @closeDialog="showAddDialog = false"/>
+    </div>
+    <!-- 搜索面板 -->
+    <div>
+      <el-input type="text" placeholder="姓名"/>
+    </div>
+    <!-- table列表显示 -->
+    <div>
+      <el-table-v2
+          :columns="columns"
+          :data="tabledata"
+          :width="1500"
+          :height="820"
+      />
+    </div>
   </div>
-  <!-- 搜索面板 -->
-  <div>
-    <el-input type="text" placeholder="姓名" />
-  </div>
-  <!-- table列表显示 -->
-  <div>
-  <el-table-v2
-      :columns="columns"
-      :data="tabledata"
-      :width="1500"
-      :height="820"
-  />
-  </div>
-  </div>
+
+  <!--  弹窗  -->
+  <RechargeDialog v-if="showRechargeDialog" @closeDialog="showRechargeDialog = false"/>
+
   <!-- 分页 -->
+
 </template>
 
 <script lang="jsx" setup>
 import {h, onMounted, ref} from 'vue';
-import {ElButton, ElTag, ElIcon, ElMessage} from "element-plus";
+import {ElButton, ElIcon, ElMessage, ElTag} from "element-plus";
 import {Edit, Wallet} from "@element-plus/icons-vue";
-import { fetchUserList } from '@/API/user.js';
+import { fetchUserList } from '@/API/list.js';
 import AddUserDialog from '@/components/user/add.vue';
+import RechargeDialog from '@/components/user/recharge.vue';
 
 const showAddDialog = ref(false);
+const showRechargeDialog = ref(false);
 
-// 删除操作的处理函数
-const handleDelete = (id) => {
-  console.log(id);
-  // 执行删除操作的逻辑
+// 充值操作的处理函数
+const handleRecharge = (User) => {
+  console.log(User);
+  // 执行充值操作的逻辑
+  showRechargeDialog.value = true;
+
 };
 
 // 修改用户的处理函数
@@ -59,7 +68,6 @@ onMounted(async () => {
 const getPasswordVisible = () => {
   return ref(false);
 };
-
 const passwordVisible = getPasswordVisible();
 
 fetchUserList().then(data => {
@@ -134,14 +142,14 @@ const columns = [
           <ElButton
               type="success"
               icon={<ElIcon><Wallet/></ElIcon>}
-              onClick={() => handleDelete(rowData.id)}
+              onClick={() => handleRecharge(rowData.User)}
           >
             充值
           </ElButton>
           <ElButton
               type="primary"
               icon={Edit}
-              onClick={() => handleUpdate(rowData.id)}
+              onClick={() => handleUpdate(rowData.User)}
           >
             修改
           </ElButton>
@@ -158,14 +166,14 @@ const tabledata = ref([]);
 
 <style scoped>
 
-.Head{
-  font-size:30px;
+.Head {
+  font-size: 30px;
   text-align: center; /* 文字居中 */
 }
 
-.user-table{
+.user-table {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 添加黑色阴影边框 */
-  padding:20px; /* 内边距 */
+  padding: 20px; /* 内边距 */
   border-radius: 20px; /* 边框圆角半径 */
   margin-right: 10px; /* 右侧外边距 */
   margin-left: 10px; /* 左侧外边距 */
@@ -174,7 +182,7 @@ const tabledata = ref([]);
 }
 
 
-div{
+div {
   margin-top: 10px;
 }
 </style>

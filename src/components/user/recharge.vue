@@ -1,14 +1,12 @@
 <template>
   <div class="container">
     <div class="form-container">
-      <h1 class="title">用户添加</h1>
+      <h1 class="title">用户充值</h1>
       <div class="input-group">
-        <el-input v-model="username" placeholder="请输入用户名" class="input-field" size="large"></el-input>
-        <el-input v-model="password" placeholder="请输入密码" type="password" class="input-field" size="large"></el-input>
-        <el-input v-model="cardNumber" placeholder="请输入卡号" class="input-field" size="large"></el-input>
+        <el-input v-model="amount" placeholder="请输入充值金额" class="input-field" size="large"></el-input>
       </div>
       <div class="button-container">
-        <el-button type="primary" @click="handleSubmit">提交</el-button>
+        <el-button type="primary" @click="handleSubmit">充值</el-button>
         <el-button type="danger" @click="goBack">返回</el-button>
       </div>
     </div>
@@ -17,14 +15,12 @@
 
 <script>
 import { ElInput, ElButton } from 'element-plus';
-import {AddAPI} from "@/API/user.js";
+import {RechargeAPI} from "@/API/user.js";
 
 export default {
   data() {
     return {
-      username: '',
-      password: '',
-      cardNumber: ''
+      amount: '',
     };
   },
 
@@ -34,11 +30,11 @@ export default {
     },
     async handleSubmit() {
       try {
-        await AddAPI.ADD(this.username, this.password, this.cardNumber);
+        await RechargeAPI.Recharge(this.username, this.amount);
         this.goBack(); // 提交成功后关闭弹窗
         window.location.reload(); // 刷新页面
       } catch (error) {
-        console.error('Error adding user:', error);
+        console.error('Error recharge:', error);
         // 处理提交错误
       }
     }
