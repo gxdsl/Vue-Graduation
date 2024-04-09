@@ -13,13 +13,16 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "axios": "^1.6.8",
+    "echarts": "^5.5.0",
     "element-plus": "^2.6.3",
     "vue": "^3.4.21",
+    "vue-echarts": "^6.6.9",
     "vue-router": "^4.0.13",
     "zx-verify": "^0.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/babel-plugin-jsx": "^1.2.2",
     "@vue/compiler-sfc": "^3.4.21",
     "vite": "^5.1.6"
   }

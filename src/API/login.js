@@ -7,7 +7,7 @@ const authAPI = {
         formData.append('user', user);
         formData.append('password', password);
 
-        return axiosInstance.post('/user/login', formData, {
+        return axiosInstance.post('/admin/login', formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
