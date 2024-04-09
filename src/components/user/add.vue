@@ -4,7 +4,8 @@
       <h1 class="title">用户添加</h1>
       <div class="input-group">
         <el-input v-model="username" placeholder="请输入用户名" class="input-field" size="large"></el-input>
-        <el-input v-model="password" placeholder="请输入密码" type="password" class="input-field" size="large"></el-input>
+        <el-input v-model="password" placeholder="请输入密码" type="password" class="input-field"
+                  size="large"></el-input>
         <el-input v-model="cardNumber" placeholder="请输入卡号" class="input-field" size="large"></el-input>
       </div>
       <div class="button-container">
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import { ElInput, ElButton } from 'element-plus';
+import {ElButton, ElInput} from 'element-plus';
 import {AddAPI} from "@/API/user.js";
 
 export default {
@@ -31,12 +32,13 @@ export default {
   methods: {
     goBack() {
       this.$emit('closeDialog'); // 触发关闭弹窗事件
+      this.$emit('rechargeSuccess');      // 触发刷新表格事件
     },
     async handleSubmit() {
       try {
         await AddAPI.ADD(this.username, this.password, this.cardNumber);
         this.goBack(); // 提交成功后关闭弹窗
-        window.location.reload(); // 刷新页面
+        // window.location.reload(); // 刷新页面
       } catch (error) {
         console.error('Error adding user:', error);
         // 处理提交错误

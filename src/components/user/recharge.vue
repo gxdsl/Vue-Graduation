@@ -2,22 +2,40 @@
   <div class="container">
     <div class="form-container">
       <h1 class="title">用户充值</h1>
+
+      <!-- 显示当前用户的用户名 -->
+      <h3>当前用户为<span style="color: blue">{{ User }}</span>,
+        余额为<span style="color: red">{{ Balance }}</span>元
+      </h3>
+
       <div class="input-group">
-        <el-input v-model="amount" placeholder="请输入充值金额" class="input-field" size="large"></el-input>
+        <el-input v-model="amount" placeholder="请输入充值金额(元)" class="input-field" size="large"></el-input>
       </div>
+
       <div class="button-container">
         <el-button type="primary" @click="handleSubmit">充值</el-button>
         <el-button type="danger" @click="goBack">返回</el-button>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import { ElInput, ElButton } from 'element-plus';
+import {ElButton, ElInput} from 'element-plus';
 import {RechargeAPI} from "@/API/user.js";
 
 export default {
+  props: {
+    User: {
+      type: String,
+      required: true
+    },
+    Balance: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       amount: '',
@@ -27,12 +45,13 @@ export default {
   methods: {
     goBack() {
       this.$emit('closeDialog'); // 触发关闭弹窗事件
+      this.$emit('rechargeSuccess');      // 触发刷新表格事件
     },
     async handleSubmit() {
       try {
-        await RechargeAPI.Recharge(this.username, this.amount);
+        await RechargeAPI.Recharge(this.User, this.amount);
         this.goBack(); // 提交成功后关闭弹窗
-        window.location.reload(); // 刷新页面
+
       } catch (error) {
         console.error('Error recharge:', error);
         // 处理提交错误

@@ -4,11 +4,10 @@
     <!-- 添加用户的按钮 -->
     <div>
       <el-button type="primary" @click="showAddDialog = true">添加用户</el-button>
-      <AddUserDialog v-if="showAddDialog" @closeDialog="showAddDialog = false"/>
     </div>
     <!-- 搜索面板 -->
     <div>
-      <el-input type="text" placeholder="姓名"/>
+      <el-input type="text" placeholder="用户名"/>
     </div>
     <!-- table列表显示 -->
     <div>
@@ -22,7 +21,9 @@
   </div>
 
   <!--  弹窗  -->
-  <RechargeDialog v-if="showRechargeDialog" @closeDialog="showRechargeDialog = false"/>
+  <AddUserDialog v-if="showAddDialog" @closeDialog="showAddDialog = false" @rechargeSuccess="refreshTable"/>
+  <RechargeDialog v-if="showRechargeDialog" :User="selectedUser" :Balance="parseFloat(selectedBalance)"
+                  @closeDialog="showRechargeDialog = false" @rechargeSuccess="refreshTable"/>
 
   <!-- 分页 -->
 
@@ -32,19 +33,27 @@
 import {h, onMounted, ref} from 'vue';
 import {ElButton, ElIcon, ElMessage, ElTag} from "element-plus";
 import {Edit, Wallet} from "@element-plus/icons-vue";
-import { fetchUserList } from '@/API/list.js';
+import {fetchUserList} from '@/API/list.js';
 import AddUserDialog from '@/components/user/add.vue';
 import RechargeDialog from '@/components/user/recharge.vue';
 
 const showAddDialog = ref(false);
 const showRechargeDialog = ref(false);
+const selectedUser = ref('');
+const selectedBalance = ref('');
 
 // 充值操作的处理函数
-const handleRecharge = (User) => {
+const handleRecharge = (User, Balance) => {
   console.log(User);
-  // 执行充值操作的逻辑
-  showRechargeDialog.value = true;
 
+  //用户名传递
+  selectedUser.value = User;
+
+  //余额传递
+  selectedBalance.value = Balance;
+
+  // 弹出充值窗口
+  showRechargeDialog.value = true;
 };
 
 // 修改用户的处理函数
@@ -142,7 +151,7 @@ const columns = [
           <ElButton
               type="success"
               icon={<ElIcon><Wallet/></ElIcon>}
-              onClick={() => handleRecharge(rowData.User)}
+              onClick={() => handleRecharge(rowData.User, rowData.Balance)}
           >
             充值
           </ElButton>
@@ -160,6 +169,16 @@ const columns = [
 
 // 表格数据
 const tabledata = ref([]);
+
+// 刷新表格数据的方法
+const refreshTable = async () => {
+  try {
+    tabledata.value = await fetchUserList();
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    ElMessage.error('获取用户数据失败');
+  }
+};
 
 </script>
 
@@ -180,7 +199,6 @@ const tabledata = ref([]);
   margin-bottom: 10px;
   position: relative;
 }
-
 
 div {
   margin-top: 10px;
