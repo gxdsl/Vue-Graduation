@@ -69,7 +69,7 @@ onMounted(async () => {
     tabledata.value = await fetchUserList();
   } catch (error) {
     console.error('Error fetching user data:', error);
-    ElMessage.error('获取用户数据失败');
+    // ElMessage.error('获取用户数据失败');
   }
 });
 

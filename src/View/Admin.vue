@@ -78,7 +78,7 @@ onMounted(async () => {
     tabledata.value = await fetchAdminList();
   } catch (error) {
     console.error('Error fetching user data:', error);
-    ElMessage.error('获取用户数据失败');
+    // ElMessage.error('获取管理员数据失败');
   }
 });
 
@@ -92,7 +92,7 @@ fetchAdminList().then(data => {
   console.log(data);
 }).catch(error => {
   console.error('Error fetching user data:', error);
-  ElMessage.error('获取用户数据失败');
+  ElMessage.error('获取管理员数据失败');
 });
 
 const columns = [
@@ -161,7 +161,7 @@ const refreshTable = async () => {
     tabledata.value = await fetchAdminList();
   } catch (error) {
     console.error('Error fetching user data:', error);
-    ElMessage.error('获取用户数据失败');
+    ElMessage.error('获取管理员数据失败');
   }
 };
 
