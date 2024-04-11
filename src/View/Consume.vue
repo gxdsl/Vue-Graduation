@@ -20,8 +20,8 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
-import {TransactionAPI} from '@/API/transaction.js';
+import { onMounted, ref } from 'vue';
+import { TransactionAPI } from '@/API/transaction.js';
 
 const columns = [
   {
@@ -85,9 +85,10 @@ const fetchData = async () => {
       const data = await TransactionAPI.List(currentPage.value, pageSize.value);
 
       console.log('Transaction data:', data);
+      // console.log('data.transactions:', data.pagedata);
 
-      if (data && data.transactions) {
-        pagedData.value = data.transactions.map(transaction => {
+      if (data && data.pagedata) {
+        pagedData.value = data.pagedata.map(transaction => {
           return {
             ID: transaction.ID,
             User: transaction.User,
@@ -110,5 +111,4 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
-
 </script>
