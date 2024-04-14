@@ -32,7 +32,7 @@ const routes = [
             {
                 path: 'equip',
                 name: "equip",
-                component: () => import("@/View/Equipment.vue")
+                component: () => import("@/View/Equip.vue")
             },
             {
                 path: 'consume',

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="centered-container">
     <el-table-v2
         :columns="columns"
         :data="pagedData"
@@ -112,3 +112,11 @@ onMounted(() => {
   fetchData();
 });
 </script>
+
+
+<style>
+.centered-container {
+  margin: 0 auto; /* 设置左右外边距为auto，实现水平居中 */
+  width: 800px; /* 设置容器宽度 */
+}
+</style>
